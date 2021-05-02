@@ -7,19 +7,18 @@
     {
         private void Awake()
         {
-            SignalManager.Register(this);
             Initialize();
         }
 
         protected virtual void OnDestroy()
         {
-            SignalManager.UnRegister(this);
         }
 
         protected virtual void Initialize()
         {
 
         }
+
 
         public virtual void Activate()
         {

@@ -6,7 +6,7 @@
     using System.Collections.Generic;
     using UnityEngine;
 
-    public class Factory<T, T1> : IFactory<T> where T : PoolableObject
+    public class Factory<T> : IFactory<T> where T : PoolableObject
     {
         private List<T> _pool;
         private List<T> _prefabs;
@@ -94,11 +94,11 @@
 
         public class Builder
         {
-            private Factory<T, T1> _factory;
+            private Factory<T> _factory;
 
             public Builder()
             {
-                _factory = new Factory<T, T1>();
+                _factory = new Factory<T>();
             }
 
             public Builder AddPrefab(T prefab)

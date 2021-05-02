@@ -11,15 +11,34 @@
             Initialize();
         }
 
-        private void Start()
-        {
-        }
         protected virtual void OnDestroy()
         {
+            UnRegistration();
         }
 
         protected virtual void Initialize()
         {
+            Registration();
+        }
+
+        protected virtual void Registration()
+        {
+
+        }
+
+        protected virtual void UnRegistration()
+        {
+
+        }
+
+        protected virtual void OnEnable()
+        {
+            
+        }
+
+        protected virtual void OnDisable()
+        {
+            
         }
 
         public virtual void Activate()
