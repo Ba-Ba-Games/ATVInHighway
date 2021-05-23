@@ -6,9 +6,9 @@
     {
         public virtual ObjectType Type { get => ObjectType.TYPE1; }
 
-        protected override void OnEnable()
+        protected override void OnDisable()
         {
-            base.OnEnable();
+            base.OnDisable();
             SignalManager.Fire(typeof(PoolableObject), this);
         }
 

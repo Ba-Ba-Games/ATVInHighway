@@ -17,7 +17,7 @@
         {
             if (other.GetComponentInParent<BaseVehicle>() is BaseVehicle vehicle)
             {
-                SignalManager.Fire(typeof(SignalGameOver), vehicle is PlayerVehicle);
+                SignalManager.Fire(typeof(SignalSetLevel));
             }
         }
 

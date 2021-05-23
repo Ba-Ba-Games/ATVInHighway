@@ -6,6 +6,7 @@
     public class Wheel : MyObject
     {
         [SerializeField] private float _horizontalMovementSpeed = 2f;
+        [SerializeField] private float _horizontalDistance = .75f;
         [SerializeField] private bool _isRightWheel = false;
         [SerializeField] private WheelCollider _ownCollider = null;
         private Chassis _chassis;
@@ -52,7 +53,7 @@
 
         private void OnChassisPositionChanged(Vector3 obj)
         {
-            Vector3 target = _chassisStatu ? new Vector3(_defaultLocalPos.x + (_isRightWheel ? 1f : -1f), Position.y, Position.z) : _defaultLocalPos;
+            Vector3 target = _chassisStatu ? new Vector3(_defaultLocalPos.x + (_isRightWheel ? _horizontalDistance : _horizontalDistance * -1), Position.y, Position.z) : _defaultLocalPos;
             Position = Vector3.MoveTowards(Position, target, _horizontalMovementSpeed * Time.deltaTime);
         }
     }

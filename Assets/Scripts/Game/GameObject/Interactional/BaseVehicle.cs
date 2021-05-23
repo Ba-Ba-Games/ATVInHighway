@@ -27,7 +27,7 @@
             _body = GetComponent<Rigidbody>();
             _controller = GetComponent<CarController>();
             _acceleration = _defaultAcceleration;
-            _canMove = true;
+            _canMove = false;
         }
 
         protected override void Registration()
@@ -87,18 +87,6 @@
                 Move();
             if (Speed != 0)
                 PositionChanged?.Invoke(transform.position);
-        }
-
-        [Signal(typeof(SignalStartGame))]
-        public void OnStartGame()
-        {
-            _canMove = true;
-        }
-
-        [Signal(typeof(SignalGameOver), typeof(bool))]
-        public void OnGameOver(bool statu)
-        {
-            //_canMove = false;
         }
 
         public void Crash(Obstacle obstacle)

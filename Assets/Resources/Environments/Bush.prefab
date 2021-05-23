@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5543339852573049438}
   - component: {fileID: 48854488017620233}
   - component: {fileID: 2720781327709298713}
+  - component: {fileID: -1934726911632417378}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
@@ -79,3 +80,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-1934726911632417378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94769009710448765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd330497f5a1d034ba00f19b0753c73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

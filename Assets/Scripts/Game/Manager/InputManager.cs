@@ -16,6 +16,8 @@
         {
             if (_joystick)
                 SignalManager.Fire(typeof(SignalJoystickMultipiers), _joystick.Horizontal, _joystick.Vertical);
+            if (Input.GetKeyDown(KeyCode.Space))
+                SignalManager.Fire(typeof(SignalSetLevel));
         }
 
     }

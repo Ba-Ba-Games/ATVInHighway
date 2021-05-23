@@ -54,6 +54,13 @@
             _perlin.m_AmplitudeGain = _amplitudePower;
             yield return new WaitForSeconds(_actionTime);
             _perlin.m_AmplitudeGain = _defaultAmplitude;
+            SignalManager.Fire(typeof(SignalSetLevel));
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _perlin.m_AmplitudeGain = _defaultAmplitude;
         }
 
         [Signal(typeof(SignalGameOver), typeof(bool))]

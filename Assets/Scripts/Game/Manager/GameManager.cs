@@ -1,49 +1,59 @@
 ﻿namespace Base.Game.Manager
 {
-    using Base.Game.Factory;
     using Base.Game.GameObject;
     using Base.Game.GameObject.Interactable;
     using Base.Game.GameObject.Interactional;
     using Base.Game.Signal;
+    using Base.Util;
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using UnityEngine;
     public class GameManager : MonoBehaviour
     {
-        private IFactory<PoolableObject> _generalFactory;
         private PlayerVehicle _player;
+        private List<BasePlatform> _platforms = new List<BasePlatform>();
         private void Awake()
         {
             SignalManager.Register(this);
-            _generalFactory = new Factory<PoolableObject>.Builder().AddAllPrefabOnPath("Vehicles").Register().Build();
-            _player = _generalFactory.GetObject(typeof(PlayerVehicle)) as PlayerVehicle;
-            _player.Crashed += OnCrashed;
+            Factory.Constraction.AddAllPrefabOnPath("Vehicles").AddAllPrefabOnPath("Platforms");
+            Factory.Constraction.AddAllPrefabOnPath("Obstacles").AddAllPrefabOnPath("Environments").Register().Build();
+           
         }
 
-        private void OnCrashed(Obstacle obj)
+        private void Start()
         {
-            StartCoroutine(CrashedAction());
-        }
-
-        private IEnumerator CrashedAction()
-        {
-            yield return new WaitForSeconds(5f);
-            OnGameOver(false);
+            Invoke("OnNewLevel", .5f);
         }
 
         private void OnDestroy()
         {
-            _player.Crashed -= OnCrashed;
             SignalManager.UnRegister(this);
         }
 
-        [Signal(typeof(SignalGameOver), typeof(bool))]
-        public void OnGameOver(bool statu)
+        [Signal(typeof(SignalSetLevel))]
+        public void OnNewLevel()
         {
-            _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            _player.transform.position = Vector3.zero;
-            _player.transform.rotation = Quaternion.Euler(Vector3.zero);
-            SignalManager.Fire(typeof(SignalStartGame));
+            if (_player)
+            {
+                _player.DeActivate();
+            }
+            _platforms.ForEach(p => p.DeActivate());
+            _platforms.Clear();
+            BasePlatform current = Factory.Instance.GetObject(typeof(BasePlatform)) as BasePlatform;
+            current.SetPlatform();
+            current.Activate();
+            _platforms.Add(current);
+            for(int i = 0; i < 10; i++)
+            {
+                BasePlatform next = Factory.Instance.GetObject(typeof(BasePlatform)) as BasePlatform;
+                next.SetPlatform(current);
+                current = next;
+                current.Activate();
+                _platforms.Add(current);
+            }
+            _player = Factory.Instance.GetObject(typeof(PlayerVehicle)) as PlayerVehicle;
+            _player.Activate();
         }
 
     }
